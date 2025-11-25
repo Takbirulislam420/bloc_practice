@@ -17,7 +17,6 @@ class ToDoBloc extends Bloc<ToDoEvent, ToDoState> {
     emit(state.copyWith(todoList: List.from(todosList)));
   }
 
-
   void _removeToDoEvent(RemoveToDoEvent event,Emitter<ToDoState> emit){
     todosList.remove(event.task);
     emit(state.copyWith(todoList: List.from(todosList)));
