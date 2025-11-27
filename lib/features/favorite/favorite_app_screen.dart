@@ -11,48 +11,74 @@ class FavoriteAppScreen extends StatefulWidget {
 }
 
 class _FavoriteAppScreenState extends State<FavoriteAppScreen> {
+
   @override
   void initState() {
-    context.read<FavoriteBloc>().add(FatchFavoriteList());
     super.initState();
+    context.read<FavoriteBloc>().add(FatchFavoriteList()); 
+    // Or FetchFavoriteList() based on your naming
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Hello")),
+      appBar: AppBar(title: const Text("Hello")),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: BlocBuilder<FavoriteBloc, FavoriteState>(
           builder: (context, state) {
+
             switch (state.listStatus) {
+
               case ListStatus.loading:
-                return CircularProgressIndicator();
+                return const Center(child: CircularProgressIndicator());
+
               case ListStatus.failure:
-                return CircularProgressIndicator();
+                return const Center(child: Text("Something went wrong"));
+
               case ListStatus.success:
                 return ListView.builder(
                   itemCount: state.favoriteItemList.length,
                   itemBuilder: (context, index) {
+
                     final item = state.favoriteItemList[index];
+
                     return Card(
                       child: ListTile(
-                        title: Text(item.value.toString()),
-                        trailing: IconButton(
-                          onPressed: () {
-                            FavoriteItemModel itemModel = FavoriteItemModel(
+                        leading: Checkbox(
+                          value: item.isFavorite,
+                          onChanged: (value) {
+                            final updatedItem = FavoriteItemModel(
                               id: item.id,
                               value: item.value,
-                              isFavorite: item.isFavorite ? false : true,
+                              isFavorite: value ?? false,
                             );
+
                             context.read<FavoriteBloc>().add(
-                              FavoriteItem(item: itemModel),
+                              FavoriteItem(item: updatedItem),
+                            );
+                          },
+                        ),
+
+                        title: Text(item.value.toString()),
+
+                        trailing: IconButton(
+                          onPressed: () {
+                            final updatedItem = FavoriteItemModel(
+                              id: item.id,
+                              value: item.value,
+                              isFavorite: !item.isFavorite,
+                            );
+
+                            context.read<FavoriteBloc>().add(
+                              FavoriteItem(item: updatedItem),
                             );
                           },
                           icon: Icon(
                             item.isFavorite
-                                ? Icons.favorite_border
-                                : Icons.favorite,
+                                ? Icons.favorite
+                                : Icons.favorite_border,
+                            color: item.isFavorite ? Colors.red : null,
                           ),
                         ),
                       ),

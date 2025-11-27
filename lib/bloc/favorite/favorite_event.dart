@@ -8,6 +8,7 @@ abstract class FavoriteEvent extends Equatable {
 }
 
 class FatchFavoriteList extends FavoriteEvent{}
+
 // ignore: must_be_immutable
 class FavoriteItem extends FavoriteEvent{
    FavoriteItemModel item;

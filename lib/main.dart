@@ -5,8 +5,7 @@ import 'package:practice_with_bloc/bloc/favorite/favorite_bloc.dart';
 import 'package:practice_with_bloc/bloc/image/imagepicker_bloc.dart';
 import 'package:practice_with_bloc/bloc/switch/switch_bloc.dart';
 import 'package:practice_with_bloc/bloc/todo/to_do_bloc.dart';
-import 'package:practice_with_bloc/features/favorite/favorite_app_screen.dart';
-import 'package:practice_with_bloc/features/to_do_list/to_do_list_screen.dart';
+import 'package:practice_with_bloc/features/api/api_screen.dart';
 import 'package:practice_with_bloc/repository/favorite_repository.dart';
 import 'package:practice_with_bloc/utils/image_picker_utils.dart';
 
@@ -34,7 +33,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           colorScheme: .fromSeed(seedColor: Colors.deepPurple),
         ),
-        home: const FavoriteAppScreen(),
+        home: const ApiScreen(),
       ),
     );
   }

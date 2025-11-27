@@ -13,9 +13,9 @@ class FavoriteState extends Equatable {
 
 
   FavoriteState copyWith({List<FavoriteItemModel>? favoriteItemList,ListStatus? listStatus}){
-    return FavoriteState(favoriteItemList: favoriteItemList?? this.favoriteItemList,listStatus:listStatus?? listStatus?? this.listStatus);
+    return FavoriteState(favoriteItemList: favoriteItemList?? this.favoriteItemList,listStatus:listStatus?? this.listStatus);
   }
 
   @override
-  List<Object> get props => [favoriteItemList];
+  List<Object> get props => [favoriteItemList,listStatus];
 }
